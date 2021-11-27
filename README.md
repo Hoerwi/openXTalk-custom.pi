@@ -24,18 +24,19 @@ What annoys me personally about it is that it, like almost all .pi-functions is 
 If you look at it this way, the structure is so simple that you can quickly assemble a new .pi- function yourself.
 We use the standard Align tool as a template. But we do not change it, because other functions of the IDE depend on this pi.
 
-Let's first build the appropriate stack
+Let's first build the appropriate stack.
 So open a default stack and drag in the segmented widget.
 We make the settings as follow in the propertys of this widget:
 
 Under Basic:
-Number of Segments: 5
-Segment names and labels on left / center / right / top / bottom
-minimum segment widths = 30
-Clicking toggels highlight = true
-Show border = true
-Display style = Icons
-Corner radius = 5
+
+     Number of Segments: 5
+     Segment names and labels on left / center / right / top / bottom
+     minimum segment widths = 30
+     Clicking toggels highlight = true
+     Show border = true
+     Display style = Icons
+     Corner radius = 5
 
 Under Icons we set the Segment Icons and Hilited Segment icons.
 Here I chose the Chevron Signs for the direction of the alignment, for Center just the black Circle.
@@ -51,15 +52,15 @@ With this we already have the representation of our Property-Inspector entry
 Now we only need the appropriate script for it.
 
 We have to write this as a separate script. Writing the whole thing directly into the custom.pi.btnalign stack unfortunately doesn't work.  
-But here we get really lazy and copy the content of the file com.livecode.pi.textalign.behavior.livecodescript into a new file and save it under the name custom.pi.btnalign.behavior.livecodescript
+But here we get really lazy and copy the content of the file com.livecode.pi.textalign.behavior.livecodescript into a new file and save it under the name custom.pi.btnalign.behavior.livecodescript.
 I recommend to do this in a separate editor like Notepad++ or Atom
 
 Now we need to make a few small adjustments in the new script at the following places:
 
-Line 1: script "custom.pi.btnalign.behavior".
-line 3: set the editorMinWidth from me to 150
-line 4: set the editorMaxWidth from me to 150
-line 28: set the width of widget 1 of me to 150
+     Line 1: script "custom.pi.btnalign.behavior".
+     line 3: set the editorMinWidth from me to 150
+     line 4: set the editorMaxWidth from me to 150
+     line 28: set the width of widget 1 of me to 150
 
 and save the whole thing to \Toolset\palettes\inspector\editors
 Once everything is saved, we restart Livecode or openXTalk.
