@@ -1,0 +1,98 @@
+widget open.widget.community.example
+
+	use com.livecode.canvas
+	use com.livecode.widget
+	
+	metadata title is "example"
+	metadata author is "Astu"
+	metadata version is "1.0.0"
+	metadata svgicon is "M85.694 138.028 C 22.077 161.727,36.548 252.516,103.906 252.292 C 165.939 252.085,184.908 169.783,129.501 141.241 C 119.376 136.026,95.726 134.291,85.694 138.028 M166.284 138.037 C 165.841 139.191,165.687 145.344,165.942 151.709 L 166.406 163.281 183.179 163.724 L 199.952 164.168 200.366 208.256 L 200.781 252.344 215.625 252.344 L 230.469 252.344 230.884 208.256 L 231.298 164.168 248.071 163.724 L 264.844 163.281 265.303 150.044 L 265.763 136.806 284.410 164.887 C 294.666 180.332,303.072 193.757,303.091 194.721 C 303.110 195.685,295.115 208.693,285.324 223.628 C 275.534 238.562,267.841 251.309,268.229 251.953 C 268.617 252.598,275.876 253.125,284.361 253.125 C 302.115 253.125,300.328 254.445,312.335 232.459 C 321.005 216.583,320.400 216.558,329.806 233.189 C 341.723 254.259,340.115 253.125,358.055 253.125 C 377.191 253.125,377.366 255.325,355.585 222.107 L 337.808 194.996 355.781 167.524 C 365.667 152.415,374.120 139.102,374.566 137.941 C 375.222 136.229,372.159 135.913,358.437 136.273 L 341.498 136.719 331.919 153.544 C 326.650 162.798,321.961 170.747,321.499 171.209 C 321.037 171.672,315.940 163.924,310.174 153.994 L 299.689 135.937 233.389 135.938 C 179.328 135.938,166.941 136.325,166.284 138.037 M118.497 168.570 C 135.143 180.423,133.373 212.329,115.557 221.587 C 82.546 238.738,60.618 184.574,92.969 165.791 C 98.016 162.861,112.728 164.462,118.497 168.570 "
+
+	
+	-- we need two varaibles. One for the Label, the other for the Alignment. both are strings!
+	
+	private variable mLabel		as String
+	private variable mBtnAlign 	as String
+	
+	private variable mPath 		as Path
+	private variable mFormattedWidth 	as Real
+	private variable mFormattedHeight 	as Real	
+	
+	-- lets have some Labeltext to align inclusive the handler for it
+	property "label" get mLabel set setLabel
+		metadata label.editor is "com.livecode.pi.string"
+		metadata label.default is "openXTalk"
+		metadata label.label is "Label"
+
+	public handler setLabel(in pText as String) returns nothing
+		put pText into mLabel
+		redraw all
+	end handler
+
+
+
+    -- this metadata shows you the Standard Align-Tool in the Property-Inspector:
+	-- for the example we move the Align-Tool from section TEXT to Section BASIC
+	
+	property "btnalign" get mBtnAlign set setBtnAlign
+		metadata btnalign.editor is "custom.pi.btnalign"
+		--metadata btnalign.section is "Basic"
+		
+		
+	-- we need an handler for the Align-Tool
+
+	public handler setBtnAlign(in pBtnAlign as String) returns nothing
+		put pBtnAlign into mBtnAlign
+		redraw all
+	end handler	
+		
+		
+
+    -- We need to see the Label, so we must "Paint" it to the Widget
+	
+	public handler onPaint()
+	
+			variable tHeight as Number
+			variable tWidth as Number
+			variable tBounds as Rectangle
+	
+			put the bounds of text mLabel on this canvas into tBounds
+			put the width of tBounds into mFormattedWidth
+			put the height of tBounds into mFormattedHeight
+	
+			put my width into tWidth
+			put my height into tHeight
+	
+			set the font of this canvas to my font
+			set the paint of this canvas to my foreground paint
+		
+			variable tRectangle as Rectangle
+			variable tPath as Path
+	
+			put rectangle path of rectangle [1,1,tWidth-1,tHeight-1] into tPath
+			
+	
+			put the bounding box of tPath into tRectangle
+			
+			if mBtnAlign is "right" then
+     fill text mLabel at right of tRectangle on this canvas
+else if mBtnAlign is "left" then
+     fill text mLabel at left of tRectangle on this canvas
+else if mBtnAlign is "top" then
+     fill text mLabel at top of tRectangle on this canvas
+else if mBtnAlign is "bottom" then
+     fill text mLabel at bottom of tRectangle on this canvas
+else
+     fill text mLabel at center of tRectangle on this canvas
+end if
+
+	
+	end handler
+
+
+
+
+
+
+
+end widget
