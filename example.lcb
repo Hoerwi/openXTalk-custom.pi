@@ -75,24 +75,16 @@ widget open.widget.community.example
 			put the bounding box of tPath into tRectangle
 			
 			if mBtnAlign is "right" then
-     fill text mLabel at right of tRectangle on this canvas
-else if mBtnAlign is "left" then
-     fill text mLabel at left of tRectangle on this canvas
-else if mBtnAlign is "top" then
-     fill text mLabel at top of tRectangle on this canvas
-else if mBtnAlign is "bottom" then
-     fill text mLabel at bottom of tRectangle on this canvas
-else
-     fill text mLabel at center of tRectangle on this canvas
-end if
+     				fill text mLabel at right of tRectangle on this canvas
+			else if mBtnAlign is "left" then
+     				fill text mLabel at left of tRectangle on this canvas
+			else if mBtnAlign is "top" then
+    				fill text mLabel at top of tRectangle on this canvas
+			else if mBtnAlign is "bottom" then
+     				fill text mLabel at bottom of tRectangle on this canvas
+			else
+     				fill text mLabel at center of tRectangle on this canvas
+			end if
 
-	
 	end handler
-
-
-
-
-
-
-
 end widget
