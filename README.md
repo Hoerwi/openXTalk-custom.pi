@@ -3,8 +3,10 @@ Make your own Property-Inspector-Function for your Widget
 
 I have been working on my new version of my customRect widget the days.
 My goal was to set the label text of the widget on the canvas like in a text field right or left aligned. Also, i wanted to have the ability to set the label to top or bottom as well. 
+
 Preferably via the property inspector, since I don't have to script the position of the label every time.
 Unfortunately the default editor com.livecode.pi.textalign which is used for this only allows center, right and left justified.  So every customRect label can only be adjusted via script? 
+
 Nope, is out of question for me lazy dog. I rather build my own .pi -function so that I don't have to set the label by script in the future.
 So let's take a closer look at the whole construct.
 I have created a small example widget which shows me a label and I can test the function of the alignment.
@@ -54,12 +56,10 @@ I recommend to do this in a separate editor like Notepad++ or Atom
 
 Now we need to make a few small adjustments in the new script at the following places:
 
-[code]
 Line 1: script "custom.pi.btnalign.behavior".
 line 3: set the editorMinWidth from me to 150
 line 4: set the editorMaxWidth from me to 150
 line 28: set the width of widget 1 of me to 150
-[/code]
 
 and save the whole thing to \Toolset\palettes\inspector\editors
 Once everything is saved, we restart Livecode or openXTalk.
@@ -69,46 +69,44 @@ I will now only go into the required entries in the LCB script.
 
 First we have to define a variable for the btnAlign:
 
-[code]private variable mBtnAlign as String[/code]
+     private variable mBtnAlign as String
 
 next we need the appropriate property to display the whole thing in the property inspector:
 with the metadata btnalign.editor we call our new .pi.- element we just created 
 
-[code]
-property "btnalign" get mAlign set setAlign
-metadata btnalign.editor is "custom.pi.btnalign“
-metadata btnalign.section is "Basic"
-[/code]
+
+     property "btnalign" get mAlign set setAlign
+          metadata btnalign.editor is "custom.pi.btnalign“
+          metadata btnalign.section is "Basic"
+
 
 What must not be missing, of course, is the handler:
 
-[code]
-public handler setBtnAlign(in pBtnAlign as String) returns nothing
-put pBtnAlign into mBtnAlign
-redraw all
-end handler	
-[/code]
+
+     public handler setBtnAlign(in pBtnAlign as String) returns nothing
+          put pBtnAlign into mBtnAlign
+          redraw all
+     end handler	
+
 
 But to make it work properly and put the label in the right place of the widget we have to add the following in the handler:
 
-[code]
 
-Public handler onPaint()
-…
-if mBtnAlign is "right" then
-     fill text mLabel at right of tRectangle on this canvas
-else if mBtnAlign is "left" then
-     fill text mLabel at left of tRectangle on this canvas
-else if mBtnAlign is "top" then
-     fill text mLabel at top of tRectangle on this canvas
-else if mBtnAlign is "bottom" then
-     fill text mLabel at bottom of tRectangle on this canvas
-else
-     fill text mLabel at center of tRectangle on this canvas
-end if
-…
-end handler
-[/code]
+     Public handler onPaint()
+     …
+          if mBtnAlign is "right" then
+               fill text mLabel at right of tRectangle on this canvas
+          else if mBtnAlign is "left" then
+               fill text mLabel at left of tRectangle on this canvas
+          else if mBtnAlign is "top" then
+               fill text mLabel at top of tRectangle on this canvas
+          else if mBtnAlign is "bottom" then
+               fill text mLabel at bottom of tRectangle on this canvas
+          else
+               fill text mLabel at center of tRectangle on this canvas
+          end if
+     …
+     end handler
 
 
 
